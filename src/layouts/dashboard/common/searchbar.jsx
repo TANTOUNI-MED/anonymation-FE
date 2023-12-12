@@ -21,14 +21,13 @@ const StyledSearchbar = styled('div')(({ theme }) => ({
   ...bgBlur({
     color: theme.palette.background.default,
   }),
-  top: 0,
-  left: 0,
+
   zIndex: 99,
   width: '100%',
   display: 'flex',
-  position: 'absolute',
   alignItems: 'center',
   height: HEADER_MOBILE,
+  borderRadius:16,
   padding: theme.spacing(0, 3),
   boxShadow: theme.customShadows.z8,
   [theme.breakpoints.up('md')]: {
@@ -52,14 +51,14 @@ export default function Searchbar() {
 
   return (
     <ClickAwayListener onClickAway={handleClose}>
-      <div>
-        {!open && (
+      <div >
+        {/* {!false && (
           <IconButton onClick={handleOpen}>
             <Iconify icon="eva:search-fill" />
           </IconButton>
-        )}
+        )} */}
 
-        <Slide direction="down" in={open} mountOnEnter unmountOnExit>
+        <Slide direction="down" in={true} mountOnEnter unmountOnExit>
           <StyledSearchbar>
             <Input
               autoFocus

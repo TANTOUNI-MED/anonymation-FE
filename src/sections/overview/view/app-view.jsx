@@ -5,7 +5,7 @@ import Grid from '@mui/material/Unstable_Grid2';
 import Typography from '@mui/material/Typography';
 
 import Iconify from 'src/components/iconify';
-
+import Searchbar from '../../../layouts/dashboard/common/searchbar';
 import AppTasks from '../app-tasks';
 import AppNewsUpdate from '../app-news-update';
 import AppOrderTimeline from '../app-order-timeline';
@@ -20,7 +20,7 @@ import AppConversionRates from '../app-conversion-rates';
 
 export default function AppView() {
   return (
-    <Container maxWidth="xl">
+    <Container maxWidth="xl" position="relative" >
       <Typography variant="h4" sx={{ mb: 5 }}>
         Hi, Welcome back 👋
       </Typography>
@@ -28,38 +28,42 @@ export default function AppView() {
       <Grid container spacing={3}>
         <Grid xs={12} sm={6} md={3}>
           <AppWidgetSummary
-            title="Weekly Sales"
-            total={714000}
+            title="Excel"
+            total={14}
             color="success"
-            icon={<img alt="icon" src="/assets/icons/glass/ic_glass_bag.png" />}
+            icon={<img alt="icon" src="/assets/icons/glass/3.png" />}
           />
         </Grid>
 
         <Grid xs={12} sm={6} md={3}>
           <AppWidgetSummary
-            title="New Users"
-            total={1352831}
+            title="DOC"
+            total={123}
             color="info"
-            icon={<img alt="icon" src="/assets/icons/glass/ic_glass_users.png" />}
+            icon={<img alt="icon" src="/assets/icons/glass/2.png" />}
           />
         </Grid>
 
         <Grid xs={12} sm={6} md={3}>
           <AppWidgetSummary
-            title="Item Orders"
-            total={1723315}
+            title="PDF"
+            total={15}
             color="warning"
-            icon={<img alt="icon" src="/assets/icons/glass/ic_glass_buy.png" />}
+            icon={<img alt="icon" src="/assets/icons/glass/1.png" />}
           />
         </Grid>
 
         <Grid xs={12} sm={6} md={3}>
           <AppWidgetSummary
-            title="Bug Reports"
-            total={234}
+            title="TEXTS"
+            total={4}
             color="error"
-            icon={<img alt="icon" src="/assets/icons/glass/ic_glass_message.png" />}
+            icon={<img alt="icon" src="/assets/icons/glass/4.png" />}
           />
+        </Grid>
+        
+        <Grid  md={12} lg={12}> 
+          <Searchbar /> 
         </Grid>
 
         <Grid xs={12} md={6} lg={8}>
@@ -225,6 +229,7 @@ export default function AppView() {
           />
         </Grid>
       </Grid>
+      
     </Container>
   );
 }
