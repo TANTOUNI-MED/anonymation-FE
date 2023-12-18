@@ -1,11 +1,12 @@
 import { faker } from '@faker-js/faker';
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
+
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Unstable_Grid2';
 import Typography from '@mui/material/Typography';
 
 import Iconify from 'src/components/iconify';
-import Searchbar from '../../../layouts/dashboard/common/searchbar';
+
 import AppTasks from '../app-tasks';
 import AppNewsUpdate from '../app-news-update';
 import AppOrderTimeline from '../app-order-timeline';
@@ -15,11 +16,39 @@ import AppWidgetSummary from '../app-widget-summary';
 import AppTrafficBySite from '../app-traffic-by-site';
 import AppCurrentSubject from '../app-current-subject';
 import AppConversionRates from '../app-conversion-rates';
+import Searchbar from '../../../layouts/dashboard/common/searchbar';
 
 
 // ----------------------------------------------------------------------
 
 export default function AppView() {
+
+  // eslint-disable-next-line no-unused-vars
+        const [statisticsData, setData] = useState([{}]);
+
+        useEffect(() => {
+          fetch("http://127.0.0.1:5000/statistics")
+            .then(res => {
+              if (!res.ok) {
+                throw new Error(`HTTP error! Status: ${res.status}`);
+              }
+              return res.text(); // Essayez avec res.text() au lieu de res.json()
+            })
+            .then(data => {
+              setData(data)
+              console.log("Raw Data:", data);
+        
+              try {
+                const jsonData = JSON.parse(data);
+                console.log("Parsed Data:", jsonData);
+                setData(jsonData);
+              } catch (error) {
+                console.error("Error parsing JSON:", error);
+              }
+            })
+            .catch(error => console.error("Error fetching data:", error));
+        }, []);
+  
   const [searchData, setSearchData] = useState(null);
   const [showAlert, setShowAlert] = useState(false);
   const [alertMessage, setAlertMessage] = useState('');
@@ -44,38 +73,64 @@ export default function AppView() {
         Hi, Welcome back 👋
       </Typography>
 
-      <Grid container spacing={3}>
-        <Grid xs={12} sm={6} md={3}>
+      <Grid container spacing={3} justifyContent='center'>
+      <Grid item xs={12} sm={6} md={3}>
+            <AppWidgetSummary
+              title="Others"
+              // total={statisticsData?.file_counts?.other !== undefined ? (
+              //   <Typography variant="h3">{statisticsData.file_counts.other}</Typography>
+              //   ) : (
+              //     <Typography variant="h3">0</Typography>
+              //   )}
+                total={statisticsData?.file_counts?.other || 0}
+              color="info"
+              icon={<img alt="icon" src="/assets/icons/glass/7.png" />}
+            />
+      </Grid>
+      <Grid  xs={12} sm={6} md={3}>
+          <AppWidgetSummary
+            title="Tous Fichier"
+            // total={statistics.file_counts.word}
+            total={statisticsData?.total_files|| 0}
+            // total = {1000}
+            color="warning"
+            icon={<img alt="icon" src="/assets/icons/glass/6.png" />}
+          />
+      </Grid>
+    </Grid>
+
+      <Grid  container spacing={3}>
+        <Grid item xs={12} sm={6} md={3}>
           <AppWidgetSummary
             title="Excel"
-            total={14}
+            total={statisticsData?.file_counts?.excel || 0}
             color="success"
             icon={<img alt="icon" src="/assets/icons/glass/3.png" />}
           />
         </Grid>
 
-        <Grid xs={12} sm={6} md={3}>
+        <Grid item xs={12} sm={6} md={3}>
           <AppWidgetSummary
             title="DOC"
-            total={123}
+            total={statisticsData?.file_counts?.word || 0}
             color="info"
             icon={<img alt="icon" src="/assets/icons/glass/2.png" />}
           />
         </Grid>
 
-        <Grid xs={12} sm={6} md={3}>
+        <Grid item xs={12} sm={6} md={3}>
           <AppWidgetSummary
             title="PDF"
-            total={15}
+            total={statisticsData?.file_counts?.pdf || 0}
             color="warning"
             icon={<img alt="icon" src="/assets/icons/glass/1.png" />}
           />
         </Grid>
 
-        <Grid xs={12} sm={6} md={3}>
+        <Grid item xs={12} sm={6} md={3}>
           <AppWidgetSummary
             title="TEXTS"
-            total={4}
+            total={statisticsData?.file_counts?.text || 0}
             color="error"
             icon={<img alt="icon" src="/assets/icons/glass/4.png" />}
           />
@@ -128,7 +183,7 @@ export default function AppView() {
       {showAlert && (
         <div className="alert alert-danger alert-dismissible fade show" role="alert">
           {alertMessage}
-          <button type="button" className="btn-close" data-bs-dismiss="alert" aria-label="Close" onClick={handleAlertClose}></button>
+          <button type="button" className="btn-close" data-bs-dismiss="alert" aria-label="Close" onClick={handleAlertClose} />
         </div>
       )}
 
@@ -177,38 +232,28 @@ export default function AppView() {
         </Grid>
 
         <Grid xs={12} md={6} lg={4}>
-          <AppCurrentVisits
-            title="Current Visits"
-            chart={{
-              series: [
-                { label: 'America', value: 4344 },
-                { label: 'Asia', value: 5435 },
-                { label: 'Europe', value: 1443 },
-                { label: 'Africa', value: 4443 },
-              ],
-            }}
-          />
+                  <AppCurrentVisits
+                    title="Current Visits"
+                    chart={{
+                      series: Object.keys(statisticsData?.file_counts || {}).map(label => ({
+                        label: label.charAt(0).toUpperCase() + label.slice(1), // Mettre en majuscule la première lettre
+                        value: statisticsData?.file_counts[label] || 0,
+                      })),
+                    }}
+                  />
         </Grid>
 
-        <Grid xs={12} md={6} lg={8}>
-          <AppConversionRates
-            title="Conversion Rates"
-            subheader="(+43%) than last year"
-            chart={{
-              series: [
-                { label: 'Italy', value: 400 },
-                { label: 'Japan', value: 430 },
-                { label: 'China', value: 448 },
-                { label: 'Canada', value: 470 },
-                { label: 'France', value: 540 },
-                { label: 'Germany', value: 580 },
-                { label: 'South Korea', value: 690 },
-                { label: 'Netherlands', value: 1100 },
-                { label: 'United States', value: 1200 },
-                { label: 'United Kingdom', value: 1380 },
-              ],
-            }}
-          />
+        <Grid xs={12} md={6} lg={4}>
+            <AppConversionRates
+              title = "Conversion Rates"
+              subheader = "(+43%) than last year"
+              chart={{
+                series: Object.keys(statisticsData?.file_counts || {}).map(label => ({
+                  label: label.charAt(0).toUpperCase()+ label.slice(1),
+                  value : statisticsData?.file_counts[label] || 0,
+                })),
+              }}
+            />
         </Grid>
 
         <Grid xs={12} md={6} lg={4}>
