@@ -66,7 +66,10 @@ function OrderItem({ item, lastTimeline }) {
         <Typography variant="subtitle2">{title}</Typography>
 
         <Typography variant="caption" sx={{ color: 'text.disabled' }}>
-          {fDateTime(time)}
+          {"referenced records count : "}
+          <Typography variant="caption" sx={{ color: 'black',fontWeight: 'bold' }}>
+            {time}
+          </Typography>
         </Typography>
       </TimelineContent>
     </TimelineItem>

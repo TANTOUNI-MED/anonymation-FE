@@ -1,5 +1,5 @@
 import { faker } from '@faker-js/faker';
-
+import React, { useState } from 'react';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Unstable_Grid2';
 import Typography from '@mui/material/Typography';
@@ -16,9 +16,28 @@ import AppTrafficBySite from '../app-traffic-by-site';
 import AppCurrentSubject from '../app-current-subject';
 import AppConversionRates from '../app-conversion-rates';
 
+
 // ----------------------------------------------------------------------
 
 export default function AppView() {
+  const [searchData, setSearchData] = useState(null);
+  const [showAlert, setShowAlert] = useState(false);
+  const [alertMessage, setAlertMessage] = useState('');
+
+  const handleDataReceived = (data) => {
+    // Handle the received data as needed
+    setSearchData(data);
+
+    // Check if there's an alert message in the data
+    if (data.message) {
+      setAlertMessage(data.message);
+      setShowAlert(true);
+    }
+  };
+
+  const handleAlertClose = () => {
+    setShowAlert(false);
+  };
   return (
     <Container maxWidth="xl" position="relative" >
       <Typography variant="h4" sx={{ mb: 5 }}>
@@ -62,9 +81,58 @@ export default function AppView() {
           />
         </Grid>
         
-        <Grid  md={12} lg={12}> 
-          <Searchbar /> 
+        <Grid md={12} lg={12}>
+          <Searchbar onDataReceived={handleDataReceived} />
         </Grid>
+
+        {searchData && searchData.referencing_tables && (
+        <Grid xs={12} md={6} lg={4}>
+          <AppOrderTimeline
+            title={`The Concerned Person : ${searchData.person_name}`}
+            list={searchData.referencing_tables.map((refTable) => ({
+              id: refTable.constraint_name,
+              title: `has information on  - ${refTable.table_name} - Table`,
+              type: 'order3',
+              time: refTable.referenced_records_count,
+            }))}
+          />
+        </Grid>
+      )}
+
+      {searchData && searchData.referencing_tables && searchData.person_id && searchData.source_table && (
+        <Grid xs={12} md={6} lg={8}>
+          <AppTasks
+            title="Anonymiser"
+            list={searchData.referencing_tables.map((refTable) => ({
+              id: refTable.constraint_name,
+              name: refTable.table_name,
+              referencing_tables: searchData.referencing_tables,
+              person_id: searchData.person_id,
+              source_table: searchData.source_table,
+            }))}
+            onSendData={(data) => {
+              // Handle sending data to the backend
+              console.log('Selected Tables:', data.selectedTables);
+              console.log('Person ID:', data.personId);
+              console.log('Source Table:', data.sourceTable);
+              console.log('Referencing Tables:', data.referencingTables);
+              // Add your API call logic here
+            }}
+          />
+        </Grid>
+      )}
+
+      {/* ... other components ... */}
+
+      {/* Bootstrap Alert */}
+      {showAlert && (
+        <div className="alert alert-danger alert-dismissible fade show" role="alert">
+          {alertMessage}
+          <button type="button" className="btn-close" data-bs-dismiss="alert" aria-label="Close" onClick={handleAlertClose}></button>
+        </div>
+      )}
+
+
 
         <Grid xs={12} md={6} lg={8}>
           <AppWebsiteVisits
@@ -169,7 +237,7 @@ export default function AppView() {
             }))}
           />
         </Grid>
-
+{/* 
         <Grid xs={12} md={6} lg={4}>
           <AppOrderTimeline
             title="Order Timeline"
@@ -186,7 +254,7 @@ export default function AppView() {
               time: faker.date.past(),
             }))}
           />
-        </Grid>
+        </Grid> */}
 
         <Grid xs={12} md={6} lg={4}>
           <AppTrafficBySite
@@ -216,18 +284,7 @@ export default function AppView() {
           />
         </Grid>
 
-        <Grid xs={12} md={6} lg={8}>
-          <AppTasks
-            title="Tasks"
-            list={[
-              { id: '1', name: 'Create FireStone Logo' },
-              { id: '2', name: 'Add SCSS and JS files if required' },
-              { id: '3', name: 'Stakeholder Meeting' },
-              { id: '4', name: 'Scoping & Estimations' },
-              { id: '5', name: 'Sprint Showcase' },
-            ]}
-          />
-        </Grid>
+
       </Grid>
       
     </Container>

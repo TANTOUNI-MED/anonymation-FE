@@ -1,5 +1,4 @@
-import { useState } from 'react';
-
+import React, { useState } from 'react';
 import Slide from '@mui/material/Slide';
 import Input from '@mui/material/Input';
 import Button from '@mui/material/Button';
@@ -7,12 +6,8 @@ import { styled } from '@mui/material/styles';
 import IconButton from '@mui/material/IconButton';
 import InputAdornment from '@mui/material/InputAdornment';
 import ClickAwayListener from '@mui/material/ClickAwayListener';
-
 import { bgBlur } from 'src/theme/css';
-
 import Iconify from 'src/components/iconify';
-
-// ----------------------------------------------------------------------
 
 const HEADER_MOBILE = 64;
 const HEADER_DESKTOP = 92;
@@ -27,7 +22,7 @@ const StyledSearchbar = styled('div')(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
   height: HEADER_MOBILE,
-  borderRadius:16,
+  borderRadius: 16,
   padding: theme.spacing(0, 3),
   boxShadow: theme.customShadows.z8,
   [theme.breakpoints.up('md')]: {
@@ -36,9 +31,8 @@ const StyledSearchbar = styled('div')(({ theme }) => ({
   },
 }));
 
-// ----------------------------------------------------------------------
-
-export default function Searchbar() {
+export default function Searchbar({ onDataReceived }) {
+  const [name, setName] = useState('');
   const [open, setOpen] = useState(false);
 
   const handleOpen = () => {
@@ -49,15 +43,26 @@ export default function Searchbar() {
     setOpen(false);
   };
 
+  const handleSearch = async () => {
+    try {
+      const response = await fetch(`http://localhost:5000/search?name=${name}`);
+      const data = await response.json();
+
+      // Notify the parent component (AppView) with the received data
+      onDataReceived(data);
+
+      // Handle the data as needed
+      console.log('Search Results:', data);
+    } catch (error) {
+      console.error('Error searching:', error);
+    }
+
+    handleClose();
+  };
+
   return (
     <ClickAwayListener onClickAway={handleClose}>
-      <div >
-        {/* {!false && (
-          <IconButton onClick={handleOpen}>
-            <Iconify icon="eva:search-fill" />
-          </IconButton>
-        )} */}
-
+      <div>
         <Slide direction="down" in={true} mountOnEnter unmountOnExit>
           <StyledSearchbar>
             <Input
@@ -65,6 +70,8 @@ export default function Searchbar() {
               fullWidth
               disableUnderline
               placeholder="Search…"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
               startAdornment={
                 <InputAdornment position="start">
                   <Iconify
@@ -75,7 +82,7 @@ export default function Searchbar() {
               }
               sx={{ mr: 1, fontWeight: 'fontWeightBold' }}
             />
-            <Button variant="contained" onClick={handleClose}>
+            <Button variant="contained" onClick={handleSearch}>
               Search
             </Button>
           </StyledSearchbar>
