@@ -1,21 +1,31 @@
-import { faker } from '@faker-js/faker';
+// import { faker } from '@faker-js/faker';
 import React, { useState,useEffect } from 'react';
 
+// import Box from '@mui/material/Box';
+// import Button from '@mui/material/Button';
+// eslint-disable-next-line import/no-extraneous-dependencies
+// import { DataGrid } from '@mui/x-data-grid';
+// import TextField from '@mui/material/TextField';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Unstable_Grid2';
 import Typography from '@mui/material/Typography';
 
-import Iconify from 'src/components/iconify';
+
+// import AppPagination from 'src/sections/overview/App-Pagination';
+
+// import Iconify from 'src/components/iconify';
 
 import AppTasks from '../app-tasks';
-import AppNewsUpdate from '../app-news-update';
+// import AppNewsUpdate from '../app-news-update';
 import AppOrderTimeline from '../app-order-timeline';
-import AppCurrentVisits from '../app-current-visits';
-import AppWebsiteVisits from '../app-website-visits';
+// import AppCurrentVisits from '../app-current-visits';
+// import AppWebsiteVisits from '../app-website-visits';
 import AppWidgetSummary from '../app-widget-summary';
-import AppTrafficBySite from '../app-traffic-by-site';
-import AppCurrentSubject from '../app-current-subject';
-import AppConversionRates from '../app-conversion-rates';
+// import AppTrafficBySite from '../app-traffic-by-site';
+// import AppCurrentSubject from '../app-current-subject';
+import SearchDrive from '../app-result-drive';
+import SearchResultGrid from '../app-datagrid-chechbox';
+// import AppConversionRates from '../app-conversion-rates';
 import Searchbar from '../../../layouts/dashboard/common/searchbar';
 
 
@@ -25,6 +35,7 @@ export default function AppView() {
 
   // eslint-disable-next-line no-unused-vars
         const [statisticsData, setData] = useState([{}]);
+        const [searchResults, setSearchResults] = useState(null);
 
         useEffect(() => {
           fetch("http://127.0.0.1:5000/statistics")
@@ -36,11 +47,11 @@ export default function AppView() {
             })
             .then(data => {
               setData(data)
-              console.log("Raw Data:", data);
+              // console.log("Raw Data:", data);
         
               try {
                 const jsonData = JSON.parse(data);
-                console.log("Parsed Data:", jsonData);
+                // console.log("Parsed Data:", jsonData);
                 setData(jsonData);
               } catch (error) {
                 console.error("Error parsing JSON:", error);
@@ -49,24 +60,69 @@ export default function AppView() {
             .catch(error => console.error("Error fetching data:", error));
         }, []);
   
-  const [searchData, setSearchData] = useState(null);
-  const [showAlert, setShowAlert] = useState(false);
-  const [alertMessage, setAlertMessage] = useState('');
+        const [searchData, setSearchData] = useState(null);
+        const [showAlert, setShowAlert] = useState(false);
+        const [alertMessage, setAlertMessage] = useState('');
 
-  const handleDataReceived = (data) => {
-    // Handle the received data as needed
-    setSearchData(data);
+        const handleDataReceived = (data) => {
+          // Handle the received data as needed
+          setSearchData(data);
 
-    // Check if there's an alert message in the data
-    if (data.message) {
-      setAlertMessage(data.message);
-      setShowAlert(true);
-    }
-  };
+          // Check if there's an alert message in the data
+          if (data.message) {
+            setAlertMessage(data.message);
+            setShowAlert(true);
+          }
+        };
 
-  const handleAlertClose = () => {
-    setShowAlert(false);
-  };
+        const handleAlertClose = () => {
+          setShowAlert(false);
+        };
+
+
+
+        // api users
+        // const handleClose = () => {
+        //   setOpen(false);
+        // };
+
+          // const [, setSuccessMessage] = useState('');
+          // const [open, setOpen ] = useState(false);
+          // const [searchResults, setSearchResults] = useState(null);
+          // const [key, setKeywords] = useState({
+          //   keyword :''
+          // });
+
+          // const handleSearch = async () => {
+          //   try{
+          //     const response = await fetch('http://127.0.0.1:5000/search_user_bd',{
+          //       method: 'POST',
+          //       headers: {
+          //         'Content-Type' : 'application/json',
+          //       },
+          //       body: JSON.stringify(key),
+          //     });
+
+          //     if (response.ok) {
+          //       const data = await response.json();
+          //       setSearchResults(data.user_info);
+          //       console.log('Data received:', data.user_info);
+          //       setSuccessMessage('La recherche a été effectuée avec succès.');
+          //     } else {
+          //         console.error('search failed');
+          //         setSuccessMessage('Erreur lors de la recherche. Veuillez réessayer.');
+          //     } 
+
+          //     setTimeout(() => setSuccessMessage(''), 10000);
+          //   } catch (error) {
+          //     console.error('Error during search:', error.toString());
+          //     setSuccessMessage('Erreur lors de la recherche. Veuillez réessayer.');
+          //   }
+          // };  
+
+          // base de données: 
+
+
   return (
     <Container maxWidth="xl" position="relative" >
       <Typography variant="h4" sx={{ mb: 5 }}>
@@ -187,148 +243,85 @@ export default function AppView() {
         </div>
       )}
 
-
-
-        <Grid xs={12} md={6} lg={8}>
-          <AppWebsiteVisits
-            title="Website Visits"
-            subheader="(+43%) than last year"
-            chart={{
-              labels: [
-                '01/01/2003',
-                '02/01/2003',
-                '03/01/2003',
-                '04/01/2003',
-                '05/01/2003',
-                '06/01/2003',
-                '07/01/2003',
-                '08/01/2003',
-                '09/01/2003',
-                '10/01/2003',
-                '11/01/2003',
-              ],
-              series: [
-                {
-                  name: 'Team A',
-                  type: 'column',
-                  fill: 'solid',
-                  data: [23, 11, 22, 27, 13, 22, 37, 21, 44, 22, 30],
-                },
-                {
-                  name: 'Team B',
-                  type: 'area',
-                  fill: 'gradient',
-                  data: [44, 55, 41, 67, 22, 43, 21, 41, 56, 27, 43],
-                },
-                {
-                  name: 'Team C',
-                  type: 'line',
-                  fill: 'solid',
-                  data: [30, 25, 36, 30, 45, 35, 64, 52, 59, 36, 39],
-                },
-              ],
-            }}
-          />
-        </Grid>
-
-        <Grid xs={12} md={6} lg={4}>
-                  <AppCurrentVisits
-                    title="Current Visits"
-                    chart={{
-                      series: Object.keys(statisticsData?.file_counts || {}).map(label => ({
-                        label: label.charAt(0).toUpperCase() + label.slice(1), // Mettre en majuscule la première lettre
-                        value: statisticsData?.file_counts[label] || 0,
-                      })),
+            {/* search of user from database  with khalil */}
+              {/* <Box
+                    sx={{
+                      display: 'flex',
+                      marginTop:'20vh',
+                      width: 1000,
+                      maxWidth: '100%',
+                      marginBottom: '5vh'
                     }}
+                  >
+                  <TextField 
+                      fullWidth label="fullWidth" 
+                      id="fullWidth" 
+                      value={key.keyword}
+                      onChange={(e)=>
+                        setKeywords({ ...key, keyword: e.target.value})
+                      }
+                      sx={{
+                        marginRight: '1vh'
+                      }}
                   />
-        </Grid>
+                  <Button 
+                      variant='contained'
+                      sx={{
+                        width:150
+                      }}
+                      onClick={handleSearch}
+                      >Submit
+                  </Button>
+                </Box> */}
+                  
+                  {/* <Box 
+                    sx={{
+                      width:'100%'
+                    }}
+                  >
+                    {searchResults && Object.entries(searchResults).map(([tableName, tableData]) => (
+                      <div key={tableName}>
+                        <h3>Résultats pour la table {tableName}</h3>
+                        {tableData.length > 0 ? (
+                          <TableContainer component={Paper}>
+                            <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                              <TableHead>
+                                <TableRow>
+                                  {Object.keys(tableData[0]).map(columnName => (
+                                    <TableCell key={columnName}>{columnName}</TableCell>
+                                  ))}
+                                </TableRow>
+                              </TableHead>
+                              <TableBody>
+                                {tableData.map((row, index) => (
+                                  <TableRow key={index}>
+                                    {Object.values(row).map((value, columnIndex) => (
+                                      <TableCell key={columnIndex}>{value}</TableCell>
+                                    ))}
+                                  </TableRow>
+                                ))}
+                              </TableBody>
+                            </Table>
+                          </TableContainer>
+                        ) : (
+                          <p>Aucun résultat trouvé dans cette table.</p>
+                        )}
+                      </div>
+                    ))}
+                  </Box> */}
 
-        <Grid xs={12} md={6} lg={4}>
-            <AppConversionRates
-              title = "Conversion Rates"
-              subheader = "(+43%) than last year"
-              chart={{
-                series: Object.keys(statisticsData?.file_counts || {}).map(label => ({
-                  label: label.charAt(0).toUpperCase()+ label.slice(1),
-                  value : statisticsData?.file_counts[label] || 0,
-                })),
-              }}
-            />
-        </Grid>
+                  {/* from the database */}
+                <SearchResultGrid searchResults={searchResults} />
 
-        <Grid xs={12} md={6} lg={4}>
-          <AppCurrentSubject
-            title="Current Subject"
-            chart={{
-              categories: ['English', 'History', 'Physics', 'Geography', 'Chinese', 'Math'],
-              series: [
-                { name: 'Series 1', data: [80, 50, 30, 40, 100, 20] },
-                { name: 'Series 2', data: [20, 30, 40, 80, 20, 80] },
-                { name: 'Series 3', data: [44, 76, 78, 13, 43, 10] },
-              ],
-            }}
-          />
-        </Grid>
 
-        <Grid xs={12} md={6} lg={8}>
-          <AppNewsUpdate
-            title="News Update"
-            list={[...Array(5)].map((_, index) => ({
-              id: faker.string.uuid(),
-              title: faker.person.jobTitle(),
-              description: faker.commerce.productDescription(),
-              image: `/assets/images/covers/cover_${index + 1}.jpg`,
-              postedAt: faker.date.recent(),
-            }))}
-          />
-        </Grid>
-{/* 
-        <Grid xs={12} md={6} lg={4}>
-          <AppOrderTimeline
-            title="Order Timeline"
-            list={[...Array(5)].map((_, index) => ({
-              id: faker.string.uuid(),
-              title: [
-                '1983, orders, $4220',
-                '12 Invoices have been paid',
-                'Order #37745 from September',
-                'New order placed #XF-2356',
-                'New order placed #XF-2346',
-              ][index],
-              type: `order${index + 1}`,
-              time: faker.date.past(),
-            }))}
-          />
-        </Grid> */}
+                                                
+                        {/* <Box>
+                          <AppPagination searchResults={searchResults} />
+                      </Box> */}
 
-        <Grid xs={12} md={6} lg={4}>
-          <AppTrafficBySite
-            title="Traffic by Site"
-            list={[
-              {
-                name: 'FaceBook',
-                value: 323234,
-                icon: <Iconify icon="eva:facebook-fill" color="#1877F2" width={32} />,
-              },
-              {
-                name: 'Google',
-                value: 341212,
-                icon: <Iconify icon="eva:google-fill" color="#DF3E30" width={32} />,
-              },
-              {
-                name: 'Linkedin',
-                value: 411213,
-                icon: <Iconify icon="eva:linkedin-fill" color="#006097" width={32} />,
-              },
-              {
-                name: 'Twitter',
-                value: 443232,
-                icon: <Iconify icon="eva:twitter-fill" color="#1C9CEA" width={32} />,
-              },
-            ]}
-          />
-        </Grid>
-
+                  <Grid md={12} lg={12}>
+                    <SearchDrive onDataReceived={handleDataReceived} />
+                  </Grid>
 
       </Grid>
       

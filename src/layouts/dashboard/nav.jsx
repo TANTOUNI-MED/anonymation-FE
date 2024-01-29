@@ -39,18 +39,18 @@ export default function Nav({ openNav, onCloseNav }) {
 
   const renderAccount = (
     <Box
-      sx={{
-        my: 3,
-        mx: 2.5,
-        py: 2,
-        px: 2.5,
-        display: 'flex',
-        borderRadius: 1.5,
-        alignItems: 'center',
-        bgcolor: (theme) => alpha(theme.palette.grey[500], 0.12),
-      }}
+      // sx={{
+      //   my: 3,
+      //   mx: 2.5,
+      //   py: 2,
+      //   px: 2.5,
+      //   display: 'flex',
+      //   borderRadius: 1.5,
+      //   alignItems: 'center',
+      //   bgcolor: (theme) => alpha(theme.palette.grey[500], 0.12),
+      // }}
     >
-      <Avatar src={account.photoURL} alt="photoURL" />
+      {/* <Avatar src={account.photoURL} alt="photoURL" />
 
       <Box sx={{ ml: 2 }}>
         <Typography variant="subtitle2">{account.displayName}</Typography>
@@ -58,7 +58,7 @@ export default function Nav({ openNav, onCloseNav }) {
         <Typography variant="body2" sx={{ color: 'text.secondary' }}>
           {account.role}
         </Typography>
-      </Box>
+      </Box> */}
     </Box>
   );
 
@@ -73,28 +73,28 @@ export default function Nav({ openNav, onCloseNav }) {
   const renderUpgrade = (
     <Box sx={{ px: 2.5, pb: 3, mt: 10 }}>
       <Stack alignItems="center" spacing={3} sx={{ pt: 5, borderRadius: 2, position: 'relative' }}>
-        <Box
+        {/* <Box
           component="img"
           src="/assets/illustrations/illustration_avatar.png"
           sx={{ width: 100, position: 'absolute', top: -50 }}
-        />
+        /> */}
 
-        <Box sx={{ textAlign: 'center' }}>
+        {/* <Box sx={{ textAlign: 'center' }}>
           <Typography variant="h6">Get more?</Typography>
 
           <Typography variant="body2" sx={{ color: 'text.secondary', mt: 1 }}>
             From only $69
           </Typography>
-        </Box>
+        </Box> */}
 
-        <Button
+        {/* <Button
           href="https://material-ui.com/store/items/minimal-dashboard/"
           target="_blank"
           variant="contained"
           color="inherit"
         >
           Upgrade to Pro
-        </Button>
+        </Button> */}
       </Stack>
     </Box>
   );

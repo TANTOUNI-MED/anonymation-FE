@@ -40,10 +40,10 @@
     chalk "^2.0.0"
     js-tokens "^4.0.0"
 
-"@babel/runtime@^7.12.5", "@babel/runtime@^7.18.3", "@babel/runtime@^7.20.7", "@babel/runtime@^7.21.0", "@babel/runtime@^7.22.6", "@babel/runtime@^7.23.1", "@babel/runtime@^7.5.5", "@babel/runtime@^7.7.6", "@babel/runtime@^7.8.7":
-  version "7.23.1"
-  resolved "https://registry.npmjs.org/@babel/runtime/-/runtime-7.23.1.tgz"
-  integrity sha512-hC2v6p8ZSI/W0HUzh3V8C5g+NwSKzKPtJwSpTjwl0o297GP9+ZLQSkdvHz46CM3LqyoXxq+5G9komY+eSqSO0g==
+"@babel/runtime@^7.12.5", "@babel/runtime@^7.18.3", "@babel/runtime@^7.20.7", "@babel/runtime@^7.21.0", "@babel/runtime@^7.22.6", "@babel/runtime@^7.23.1", "@babel/runtime@^7.23.2", "@babel/runtime@^7.23.6", "@babel/runtime@^7.5.5", "@babel/runtime@^7.7.6", "@babel/runtime@^7.8.7":
+  version "7.23.7"
+  resolved "https://registry.npmjs.org/@babel/runtime/-/runtime-7.23.7.tgz"
+  integrity sha512-w06OXVOFso7LcbzMiDGt+3X7Rh7Ho8MmgPoWU3rarH+8upf+wSU/grlGbWzQyr3DkdN6ZeuMFjpdwW0Q+HxobA==
   dependencies:
     regenerator-runtime "^0.14.0"
 
@@ -295,7 +295,7 @@
     clsx "^2.0.0"
     prop-types "^15.8.1"
 
-"@mui/material@^5.0.0", "@mui/material@^5.14.12", "@mui/material@^5.8.6":
+"@mui/material@^5.0.0", "@mui/material@^5.14.12", "@mui/material@^5.4.1", "@mui/material@^5.8.6":
   version "5.14.12"
   resolved "https://registry.npmjs.org/@mui/material/-/material-5.14.12.tgz"
   integrity sha512-EelF2L46VcVqhg3KjzIGBBpOtcBgRh0MMy9Efuk6Do81QdcZsFC9RebCVAflo5jIdbHiBmxBs5/l5Q9NjONozg==
@@ -332,7 +332,7 @@
     csstype "^3.1.2"
     prop-types "^15.8.1"
 
-"@mui/system@^5.14.12", "@mui/system@^5.8.0":
+"@mui/system@^5.14.12", "@mui/system@^5.4.1", "@mui/system@^5.8.0":
   version "5.14.12"
   resolved "https://registry.npmjs.org/@mui/system/-/system-5.14.12.tgz"
   integrity sha512-6DXfjjLhW0/ia5qU3Crke7j+MnfDbMBOHlLIrqbrEqNs0AuSBv8pXniEGb+kqO0H804NJreRTEJRjCngwOX5CA==
@@ -351,15 +351,26 @@
   resolved "https://registry.npmjs.org/@mui/types/-/types-7.2.5.tgz"
   integrity sha512-S2BwfNczr7VwS6ki8GoAXJyARoeSJDLuxOEPs3vEMyTALlf9PrdHv+sluX7kk3iKrCg/ML2mIWwapZvWbkMCQA==
 
-"@mui/utils@^5.14.12", "@mui/utils@^5.14.3":
-  version "5.14.12"
-  resolved "https://registry.npmjs.org/@mui/utils/-/utils-5.14.12.tgz"
-  integrity sha512-RFNXnhKQlzIkIUig6mmv0r5VbtjPdWoaBPYicq25LETdZux59HAqoRdWw15T7lp3c7gXOoE8y67+hTB8C64m2g==
+"@mui/utils@^5.14.12", "@mui/utils@^5.14.16", "@mui/utils@^5.14.3":
+  version "5.15.3"
+  resolved "https://registry.npmjs.org/@mui/utils/-/utils-5.15.3.tgz"
+  integrity sha512-mT3LiSt9tZWCdx1pl7q4Q5tNo6gdZbvJel286ZHGuj6LQQXjWNAh8qiF9d+LogvNUI+D7eLkTnj605d1zoazfg==
   dependencies:
-    "@babel/runtime" "^7.23.1"
-    "@types/prop-types" "^15.7.7"
+    "@babel/runtime" "^7.23.6"
+    "@types/prop-types" "^15.7.11"
     prop-types "^15.8.1"
     react-is "^18.2.0"
+
+"@mui/x-data-grid@^6.18.7":
+  version "6.18.7"
+  resolved "https://registry.npmjs.org/@mui/x-data-grid/-/x-data-grid-6.18.7.tgz"
+  integrity sha512-K1A3pMUPxI4/Mt5A4vrK45fBBQK5rZvBVqRMrB5n8zX++Bj+WLWKvLTtfCmlriUtzuadr/Hl7Z+FDRXUJAx6qg==
+  dependencies:
+    "@babel/runtime" "^7.23.2"
+    "@mui/utils" "^5.14.16"
+    clsx "^2.0.0"
+    prop-types "^15.8.1"
+    reselect "^4.1.8"
 
 "@mui/x-tree-view@6.0.0-alpha.1":
   version "6.0.0-alpha.1"
@@ -477,10 +488,10 @@
   resolved "https://registry.npmjs.org/@types/parse-json/-/parse-json-4.0.0.tgz"
   integrity sha512-//oorEZjL6sbPcKUaCdIGlIUeH26mgzimjBB77G6XRgnDl/L5wOnpyBGRe/Mmf5CVW3PwEBE1NjiMZ/ssFh4wA==
 
-"@types/prop-types@*", "@types/prop-types@^15.7.7":
-  version "15.7.8"
-  resolved "https://registry.npmjs.org/@types/prop-types/-/prop-types-15.7.8.tgz"
-  integrity sha512-kMpQpfZKSCBqltAJwskgePRaYRFukDkm1oItcAbC3gNELR20XIBcN9VRgg4+m8DKsTfkWeA4m4Imp4DDuWy7FQ==
+"@types/prop-types@*", "@types/prop-types@^15.7.11":
+  version "15.7.11"
+  resolved "https://registry.npmjs.org/@types/prop-types/-/prop-types-15.7.11.tgz"
+  integrity sha512-ga8y9v9uyeiLdpKddhxYQkxNDrfvuPrlFb0N1qnZZByvcElJaXthF1UhvCh9TLWJBEHeNtdnbysW7Y6Uq8CVng==
 
 "@types/react-transition-group@^4.4.6":
   version "4.4.7"
@@ -2687,6 +2698,11 @@ regexp.prototype.flags@^1.4.3, regexp.prototype.flags@^1.5.1:
     define-properties "^1.2.0"
     set-function-name "^2.0.0"
 
+reselect@^4.1.8:
+  version "4.1.8"
+  resolved "https://registry.npmjs.org/reselect/-/reselect-4.1.8.tgz"
+  integrity sha512-ab9EmR80F/zQTMNeneUr4cv+jSwPJgIlvEmVwLerwrWVbpLlBuls9XHzIeTFy4cegU2NHBp3va0LKOzU5qFEYQ==
+
 resolve-from@^4.0.0:
   version "4.0.0"
   resolved "https://registry.npmjs.org/resolve-from/-/resolve-from-4.0.0.tgz"
@@ -3131,6 +3147,11 @@ typed-array-length@^1.0.4:
     call-bind "^1.0.2"
     for-each "^0.3.3"
     is-typed-array "^1.1.9"
+
+typescript@*, typescript@>=4.2.0:
+  version "5.3.3"
+  resolved "https://registry.npmjs.org/typescript/-/typescript-5.3.3.tgz"
+  integrity sha512-pXWcraxM0uxAS+tN0AG/BF2TyqmHO014Z070UsJ+pFvYuRSq8KH8DmWpnbXe0pEPDHXZV3FcAbJkijJ5oNEnWw==
 
 unbox-primitive@^1.0.2:
   version "1.0.2"

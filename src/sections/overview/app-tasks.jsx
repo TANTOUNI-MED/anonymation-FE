@@ -1,16 +1,19 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
+
 import Card from '@mui/material/Card';
 import Stack from '@mui/material/Stack';
+import Button from '@mui/material/Button';
 import Popover from '@mui/material/Popover';
 import MenuItem from '@mui/material/MenuItem';
 import Checkbox from '@mui/material/Checkbox';
 import IconButton from '@mui/material/IconButton';
 import CardHeader from '@mui/material/CardHeader';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Button from '@mui/material/Button'; // Add this import statement
-import Iconify from 'src/components/iconify';
+import FormControlLabel from '@mui/material/FormControlLabel'; // Add this import statement
 import axios from 'axios';
+
+// eslint-disable-next-line import/no-unresolved
+import Iconify from 'src/components/iconify';
 // ----------------------------------------------------------------------
 
 // ... (imports and other code)
@@ -76,7 +79,7 @@ export default function AnalyticsTasks({ title, subheader, list, onSendData, ...
 
       <Stack direction="row" justifyContent="flex-end" p={2}>
         <Button variant="contained" onClick={handleSendData}>
-           Anonymize
+            Anonymize
         </Button>
       </Stack>
     </Card>

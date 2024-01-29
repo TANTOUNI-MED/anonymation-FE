@@ -1,13 +1,18 @@
+/* eslint-disable react/jsx-no-undef */
 import React, { useState } from 'react';
+
 import Slide from '@mui/material/Slide';
 import Input from '@mui/material/Input';
 import Button from '@mui/material/Button';
 import { styled } from '@mui/material/styles';
-import IconButton from '@mui/material/IconButton';
 import InputAdornment from '@mui/material/InputAdornment';
 import ClickAwayListener from '@mui/material/ClickAwayListener';
+
 import { bgBlur } from 'src/theme/css';
+
 import Iconify from 'src/components/iconify';
+
+
 
 const HEADER_MOBILE = 64;
 const HEADER_DESKTOP = 92;
@@ -31,13 +36,12 @@ const StyledSearchbar = styled('div')(({ theme }) => ({
   },
 }));
 
+// eslint-disable-next-line react/prop-types
 export default function Searchbar({ onDataReceived }) {
   const [name, setName] = useState('');
-  const [open, setOpen] = useState(false);
+  const [, setOpen] = useState(false);
 
-  const handleOpen = () => {
-    setOpen(!open);
-  };
+
 
   const handleClose = () => {
     setOpen(false);
@@ -60,10 +64,12 @@ export default function Searchbar({ onDataReceived }) {
     handleClose();
   };
 
+  
+
   return (
     <ClickAwayListener onClickAway={handleClose}>
       <div>
-        <Slide direction="down" in={true} mountOnEnter unmountOnExit>
+        <Slide direction="down" in mountOnEnter unmountOnExit>
           <StyledSearchbar>
             <Input
               autoFocus
@@ -87,6 +93,13 @@ export default function Searchbar({ onDataReceived }) {
             </Button>
           </StyledSearchbar>
         </Slide>
+
+
+       
+
+        
+            
+
       </div>
     </ClickAwayListener>
   );
